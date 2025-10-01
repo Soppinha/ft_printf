@@ -1,23 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_print_str.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 17:31:50 by svaladar          #+#    #+#             */
-/*   Updated: 2025/09/11 18:16:42 by svaladar         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
-int	ft_print_str(char *s)
+int	ft_print_str(char *str)
 {
-	int	s_len;
+	int	len;
 
-	s_len = 0;
-	ft_putstr_fd(s, 1);
-	s_len = ft_strlen(s);
-	return (s_len);
+	if (!str)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	len = ft_strlen(str);
+	ft_putstr_fd(str, 1);
+	return (len);
 }

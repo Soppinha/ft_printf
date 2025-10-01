@@ -10,9 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_printf(const char *, ...)
+#include "ft_printf.h"
+
+int	ft_printf(const char *format, ...)
 {
-	
+	va_list	args;
+	int		count;
+
+	if (!format)
+		return (-1);
+	va_start(args, format);
+	count = ft_parse_format(format, args);
+	va_end(args);
+	return (count);
 }
-
-

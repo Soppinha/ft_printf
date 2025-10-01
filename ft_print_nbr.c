@@ -1,22 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 17:32:04 by svaladar          #+#    #+#             */
-/*   Updated: 2025/09/11 18:21:45 by svaladar         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
+
+static int	ft_numlen(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
 
 int	ft_print_nbr(int n)
 {
-	int	s_len;
+	int	len;
 
-	s_len = 0;
-	s_len = ft_strlen(ft_itoa(n));
-	return (s_len);
+	len = ft_numlen(n);
+	ft_putnbr_fd(n, 1);
+	return (len);
 }

@@ -1,35 +1,42 @@
-NAME		=	libftprintf.a
-LIBFT_DIR	=	libft
-LIBFT		=	$(LIBFT_DIR)/libft.a
+NAME = libftprintf.a
 
-SRCS		=	ft_printf.c \
-				ft_parser.c \
-				ft_print_char.c \
-				ft_print_str.c \
-				ft_print_nbr.c \
-				ft_print_unsigned.c \
-				ft_print_hex.c \
-				ft_print_ptr.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-OBJS		=	$(SRCS:.c=.o)
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+SRCS = ft_printf.c \
+		ft_parse_format.c \
+		ft_print_char.c \
+		ft_print_str.c \
+		ft_print_ptr.c \
+		ft_print_per.c \
+		ft_print_nbr.c \
+		ft_print_usg.c \
+		ft_print_hex.c
+
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR) bonus
+
+%.o: %.c ft_printf.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(LIBFT) $(OBJS)
 	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
 clean:
+	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -f $(OBJS)
-	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
