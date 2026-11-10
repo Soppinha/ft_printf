@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 10:07:12 by svaladar          #+#    #+#             */
-/*   Updated: 2025/08/19 15:45:26 by svaladar         ###   ########.fr       */
+/*   Created: 2025/10/01 16:03:15 by svaladar          #+#    #+#             */
+/*   Updated: 2025/10/01 16:03:16 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strrchr(const char *s, int c)
-{	
-	int		i;
-	char	charc;
-	char	*res;
+int	ft_print_ptr(unsigned long ptr, t_format fmt)
+{
+	char	buf[UTOA_BUF];
 
-	i = 0;
-	charc = (char) c;
-	res = NULL;
-	while (s[i])
+	if (ptr == 0)
 	{
-		if (s[i] == charc)
-			res = (char *)&s[i];
-		i++;
+		fmt.precision = -1;
+		return (ft_print_str("(nil)", fmt));
 	}
-	if (s[i] == charc)
-		res = (char *)&s[i];
-	return (res);
+	return (ft_print_number(ft_utoa_base(ptr, BASE_HEX_LOW, buf), "0x", fmt));
 }

@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_print_usg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 11:21:01 by svaladar          #+#    #+#             */
-/*   Updated: 2025/08/19 16:18:59 by svaladar         ###   ########.fr       */
+/*   Created: 2025/10/01 16:03:37 by svaladar          #+#    #+#             */
+/*   Updated: 2025/10/01 16:04:49 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int	ft_print_usg(unsigned int n, t_format fmt)
 {
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
+	char	buf[UTOA_BUF];
+
+	return (ft_print_number(ft_utoa_base(n, BASE_DEC, buf), "", fmt));
 }

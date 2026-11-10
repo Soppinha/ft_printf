@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 11:21:25 by svaladar          #+#    #+#             */
-/*   Updated: 2025/08/06 12:50:18 by svaladar         ###   ########.fr       */
+/*   Created: 2025/10/01 16:02:57 by svaladar          #+#    #+#             */
+/*   Updated: 2025/10/01 16:02:58 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_print_hex(unsigned int n, int uppercase, t_format fmt)
 {
-	char	digit;
+	char	buf[UTOA_BUF];
+	char	*base;
+	char	*prefix;
 
-	if (fd < 0)
-		return ;
-	if (n == -2147483648)
+	base = BASE_HEX_LOW;
+	prefix = "0x";
+	if (uppercase)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		base = BASE_HEX_UP;
+		prefix = "0X";
 	}
-	else if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n = -n;
-	}
-	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	else
-	{
-		digit = n + 48;
-		write(fd, &digit, 1);
-	}
+	if (!(fmt.flags & F_HASH) || n == 0)
+		prefix = "";
+	return (ft_print_number(ft_utoa_base(n, base, buf), prefix, fmt));
 }

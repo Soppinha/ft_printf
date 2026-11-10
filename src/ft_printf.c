@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 15:08:57 by svaladar          #+#    #+#             */
-/*   Updated: 2025/08/06 16:29:25 by svaladar         ###   ########.fr       */
+/*   Created: 2025/09/03 18:00:23 by svaladar          #+#    #+#             */
+/*   Updated: 2025/10/01 16:03:49 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_isprint(int c)
+int	ft_printf(const char *format, ...)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
-	return (0);
+	va_list	args;
+	int		count;
+
+	if (!format)
+		return (-1);
+	va_start(args, format);
+	count = ft_parse_format(format, &args);
+	va_end(args);
+	return (count);
 }

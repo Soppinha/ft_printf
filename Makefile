@@ -1,43 +1,48 @@
-NAME = libftprintf.a
+NAME		=	libftprintf.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
 
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+SRC_DIR		=	src
+OBJ_DIR		=	obj
+INC_DIR		=	include
 
-SRCS = ft_printf.c \
-		ft_parse_format.c \
-		ft_print_char.c \
-		ft_print_str.c \
-		ft_print_ptr.c \
-		ft_print_per.c \
-		ft_print_nbr.c \
-		ft_print_usg.c \
-		ft_print_hex.c
+INCLUDES	=	-I$(INC_DIR)
 
-OBJS = $(SRCS:.c=.o)
+SRC_FILES	=	ft_printf.c \
+				ft_parse_format.c \
+				ft_parse_spec.c \
+				ft_print_char.c \
+				ft_print_str.c \
+				ft_print_ptr.c \
+				ft_print_per.c \
+				ft_print_nbr.c \
+				ft_print_usg.c \
+				ft_print_hex.c \
+				ft_print_utils.c \
+				ft_pf_libc.c
+
+OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 all: $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR) bonus
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-%.o: %.c ft_printf.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/ft_printf.h | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(LIBFT) $(OBJS)
-	cp $(LIBFT) $(NAME)
+$(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
+bonus: all
+
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

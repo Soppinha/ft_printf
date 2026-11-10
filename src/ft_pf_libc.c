@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_str.c                                     :+:      :+:    :+:   */
+/*   ft_pf_libc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svaladar <svaladar@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 16:03:20 by svaladar          #+#    #+#             */
-/*   Updated: 2025/10/01 16:03:21 by svaladar         ###   ########.fr       */
+/*   Created: 2025/10/01 16:03:06 by svaladar          #+#    #+#             */
+/*   Updated: 2026/11/10 18:59:25 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_str(char *str)
+size_t	ft_pf_strlen(const char *s)
 {
-	int	len;
+	size_t	len;
 
-	if (!str)
-	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
-	}
-	len = ft_strlen(str);
-	ft_putstr_fd(str, 1);
+	len = 0;
+	while (s[len])
+		len++;
 	return (len);
+}
+
+char	*ft_pf_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }
